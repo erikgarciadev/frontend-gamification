@@ -1,13 +1,14 @@
-import { Box, Text } from "@chakra-ui/react";
 import React from "react";
+import { BrowserRouter } from "react-router-dom";
+import PrivateRoutes from "./routes/PrivateRoutes";
+import PublicRoutes from "./routes/PublicRoutes";
 
 function App() {
+  const isPrivate = !!localStorage.getItem("token");
   return (
-    <Box>
-      <Text fontWeight={"bold"} fontSize={"4xl"}>
-        Hello world
-      </Text>
-    </Box>
+    <BrowserRouter>
+      {isPrivate ? <PrivateRoutes /> : <PublicRoutes />}
+    </BrowserRouter>
   );
 }
 
