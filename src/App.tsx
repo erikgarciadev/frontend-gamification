@@ -1,10 +1,13 @@
-import React from 'react';
+import { Box, Text } from "@chakra-ui/react";
+import React from "react";
 
 function App() {
   return (
-    <div >
-      <h1>Hello world</h1>
-    </div>
+    <Box>
+      <Text fontWeight={"bold"} fontSize={"4xl"}>
+        Hello world
+      </Text>
+    </Box>
   );
 }
 
