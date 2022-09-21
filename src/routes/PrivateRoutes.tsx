@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 
 export default function PrivateRoutes() {
   useEffect(() => {
@@ -13,7 +13,7 @@ export default function PrivateRoutes() {
   return (
     <Routes>
       <Route path="/" element={<div>Private</div>} />
-      <Route path="/test" element={<div>Test</div>} />
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 }
