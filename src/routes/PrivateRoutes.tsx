@@ -1,10 +1,13 @@
 import React, { useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
+import { useAppDispatch } from "../app/hooks";
+import { handleLogout } from "../redux/authSlice";
 
 export default function PrivateRoutes() {
+  const dispatch = useAppDispatch();
   useEffect(() => {
     let handler = setTimeout(() => {
-      console.log("test");
+      // dispatch(handleLogout());
     }, 10000);
 
     return () => clearTimeout(handler);
