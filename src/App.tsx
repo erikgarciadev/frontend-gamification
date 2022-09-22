@@ -1,13 +1,15 @@
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
+import { useAppSelector } from "./app/hooks";
 import PrivateRoutes from "./routes/PrivateRoutes";
 import PublicRoutes from "./routes/PublicRoutes";
 
 function App() {
-  const isPrivate = !!localStorage.getItem("token");
+  const isLogged = useAppSelector((state) => state.auth.isLogged);
+
   return (
     <BrowserRouter>
-      {isPrivate ? <PrivateRoutes /> : <PublicRoutes />}
+      {isLogged ? <PrivateRoutes /> : <PublicRoutes />}
     </BrowserRouter>
   );
 }
