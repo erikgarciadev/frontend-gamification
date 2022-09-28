@@ -1,19 +1,12 @@
-import React, { ChangeEvent, useState } from "react";
-import {
-  Alert,
-  Box,
-  Button,
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-  Input,
-  Text,
-  AlertIcon,
-} from "@chakra-ui/react";
+import React, { ChangeEvent } from "react";
+import { Input, Text } from "@chakra-ui/react";
 import useForm from "../../../../hooks/useForm";
 import { IFormLogin } from "../../interfaces";
 import useFormLogin from "../../hooks/useFormLogin";
 import InputPassword from "../../shared/InputPassword";
+import { FormControlRequired } from "../../shared/FormControlRequired";
+import { ErrorMessage } from "../../shared/ErrorMessage";
+import { BottomForm } from "../../shared/BottomForm";
 
 export default function FormLogin({
   setIsLogin,
@@ -46,8 +39,11 @@ export default function FormLogin({
       <Text fontSize="3xl" fontWeight="bold" textAlign="center">
         INICIAR SESIÓN
       </Text>
-      <FormControl isRequired mt="2" isInvalid={errors.username !== ""}>
-        <FormLabel>Usuario</FormLabel>
+      <FormControlRequired
+        errorMessage={errors.username}
+        label="Usuario"
+        isInvalid={errors.username !== ""}
+      >
         <Input
           name="username"
           size="lg"
@@ -57,10 +53,12 @@ export default function FormLogin({
           onChange={_handleChange}
           value={form.username}
         />
-        <FormErrorMessage mt="0.5">{errors.username}</FormErrorMessage>
-      </FormControl>
-      <FormControl isRequired mt="2" isInvalid={errors.password !== ""}>
-        <FormLabel>Contraseña</FormLabel>
+      </FormControlRequired>
+      <FormControlRequired
+        label="Contraseña"
+        errorMessage={errors.password}
+        isInvalid={errors.password !== ""}
+      >
         <InputPassword
           name="password"
           size="lg"
@@ -70,25 +68,14 @@ export default function FormLogin({
           value={form.password}
           type="password"
         />
-        <FormErrorMessage mt="0.5">{errors.password}</FormErrorMessage>
-      </FormControl>
-      {errorMessage !== "" ? (
-        <Alert mt="4" status="error">
-          <AlertIcon />
-          {errorMessage}
-        </Alert>
-      ) : null}
-      <Box mt="4" display="flex" flexDirection="column" alignItems="center">
-        <Button isLoading={loading} type="submit" size="lg">
-          INGRESAR
-        </Button>
-        <Box mt="5" display="flex" gap="2" alignItems="center">
-          <Text>¿ No tienes una cuenta ?</Text>
-          <Button variant="link" onClick={() => setIsLogin(false)}>
-            CREAR CUENTA
-          </Button>
-        </Box>
-      </Box>
+      </FormControlRequired>
+      <ErrorMessage errorMessage={errorMessage} />
+      <BottomForm
+        loading={loading}
+        text="¿ No tienes una cuenta ?"
+        textLink="CREAR CUENTA"
+        onClick={() => setIsLogin(false)}
+      />
     </form>
   );
 }
