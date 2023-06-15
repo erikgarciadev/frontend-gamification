@@ -5,9 +5,12 @@ import axiosInstance from "../../../config/axiosInstance";
 import { IUser } from "../../../interfaces/user.interface";
 import { handleLogin } from "../../../redux/authSlice";
 import { IFormLogin } from "../interfaces";
+import { useNavigate } from "react-router-dom";
+import { BASE_PATHS } from "../../../utils/constants";
 
 export default function useFormLogin() {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -52,14 +55,20 @@ export default function useFormLogin() {
         user: IUser;
         token: string;
       }>("/auth/login", formObject);
+
+      const role = res.data.user.role.value;
+      const path = BASE_PATHS[role as "student" | "instructor"];
+
       dispatch(
         handleLogin({
           user: res.data.user,
           token: res.data.token,
         })
       );
+
       setLoading(false);
       setErrorMessage("");
+      navigate(path);
     } catch (error) {
       setLoading(false);
       if (error instanceof AxiosError) {

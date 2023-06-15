@@ -10,14 +10,14 @@ export const BottomForm = ({ loading, text, textLink, onClick } : {
   return (
     <Box mt="4" display="flex" flexDirection="column" alignItems="center">
       <Button isLoading={loading} type="submit" size="lg">
-        REGISTRAR CUENTA
+        INICIAR SESIÓN
       </Button>
-      <Box mt="5" display="flex" gap="2" alignItems="center">
+      {/* <Box mt="5" display="flex" gap="2" alignItems="center">
         <Text>¿ Ya tienes una cuenta ?</Text>
         <Button variant="link" onClick={onClick}>
-          INICIAR SESIÓN
+        REGISTRAR CUENTA
         </Button>
-      </Box>
+      </Box> */}
     </Box>
   );
 };

@@ -6,16 +6,19 @@ export default function Login() {
   return (
     <Box
       h="100vh"
-      bg="#f8f7f3"
       display="flex"
       justifyContent="center"
       alignItems="center"
+      bgImage={"/images/background.jpg"}
+      backgroundRepeat={"no-repeat"}
+      backgroundSize={"cover"}
+      backgroundPosition={"center"}
     >
       <Box
         display="flex"
         gap={{
           base: "0",
-          md: "5",
+          md: "20",
         }}
         w={{
           base: "100%",
@@ -34,8 +37,9 @@ export default function Login() {
           <img
             width="250px"
             height="250px"
-            src="https://distok.top/stickers/754103543786504244/754108890559283200.gif"
+            src="https://static.wikia.nocookie.net/discord/images/0/0d/Clyde_%28sticker%29.svg"
             alt=""
+            className="box_float"
           />
         </Box>
         <Box

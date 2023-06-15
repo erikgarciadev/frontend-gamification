@@ -1,0 +1,30 @@
+.badge {
+    margin-top: 30px;
+    width: 150px;
+    height: 100px;
+    /* background-color: red; */
+    /* border-color: red; */
+    position: relative;
+    display: inline-block;
+}
+.badge:before {
+    content: " ";
+    width: 0;
+    height: 0;
+    border-bottom: 30px solid;
+    border-color: inherit;
+    border-left: 75px solid transparent;
+    border-right: 75px solid transparent;
+    position: absolute;
+    top: -30px;
+}
+.badge:after {
+    content: "";
+    width: 0;
+    position: absolute;
+    bottom: -30px;
+    border-top: 30px solid;
+    border-color: inherit;
+    border-left: 75px solid transparent;
+    border-right: 75px solid transparent;
+}
