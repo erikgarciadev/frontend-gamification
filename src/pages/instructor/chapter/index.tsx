@@ -1,15 +1,22 @@
 import {
   Box,
   Button,
+  Checkbox,
   FormControl,
   FormLabel,
   Input,
+  Radio,
   Text,
   Textarea,
   useToast,
 } from "@chakra-ui/react";
 import React from "react";
-import { HiOutlinePencil, HiOutlineTrash } from "react-icons/hi";
+import {
+  HiOutlinePencil,
+  HiOutlineThumbDown,
+  HiOutlineThumbUp,
+  HiOutlineTrash,
+} from "react-icons/hi";
 import { useNavigate, useParams } from "react-router-dom";
 import ModalTrueOrFalse from "./modals/true_or_false";
 import { QUESTION_TYPES } from "../../../utils/constants";
@@ -37,6 +44,7 @@ const InstructorChapter = () => {
     register,
     handleSubmit: handleSubmitForm,
     control,
+    setValue,
   } = useForm<{
     name: string;
     information: string;
@@ -44,6 +52,10 @@ const InstructorChapter = () => {
 
   const getChapter = async () => {
     const res = await axiosInstance.get(`/chapters/${chapter_id}`);
+    console.log(res.data);
+    setValue("name", res.data.name ?? "");
+    setValue("information", res.data.information ?? "");
+    setQuestions(res.data.questions ?? []);
   };
 
   React.useEffect(() => {
@@ -137,16 +149,33 @@ const InstructorChapter = () => {
     }
   };
 
-  const renderButtonByType = (type: string) => {
+  const renderButtonByType = (
+    type: string,
+    small = false,
+    disabled = false
+  ) => {
     const icon = () => {
       switch (type) {
         case QUESTION_TYPES.TRUE_OR_FALSE:
-          return <MdOutlineThumbsUpDown color="white" fontSize={"1.5em"} />;
+          return (
+            <MdOutlineThumbsUpDown
+              color="white"
+              fontSize={small ? "1em" : "1.5em"}
+            />
+          );
         case QUESTION_TYPES.MULTIPLE:
-          return <MdOutlineCheckBox color="white" fontSize={"1.5em"} />;
+          return (
+            <MdOutlineCheckBox
+              color="white"
+              fontSize={small ? "1em" : "1.5em"}
+            />
+          );
         case QUESTION_TYPES.UNIQUE:
           return (
-            <MdOutlineRadioButtonChecked color="white" fontSize={"1.5em"} />
+            <MdOutlineRadioButtonChecked
+              color="white"
+              fontSize={small ? "1em" : "1.5em"}
+            />
           );
       }
     };
@@ -160,15 +189,87 @@ const InstructorChapter = () => {
         bg="green.400"
         rounded="full"
         p={2}
-        w="40px"
-        h="40px"
+        w={small ? "30px" : "40px"}
+        h={small ? "30px" : "40px"}
         cursor={"pointer"}
+        pointerEvents={disabled ? "none" : "auto"}
       >
         {icon()}
       </Box>
     );
   };
 
+  const renderContentQuestion = (data: any) => {
+    const valueTrueFalse = data?.is_correct ?? null;
+    switch (data.type) {
+      case QUESTION_TYPES.TRUE_OR_FALSE:
+        return (
+          <Box
+            display={"flex"}
+            gap={20}
+            justifyContent={"center"}
+            alignItems={"center"}
+          >
+            <Box
+              display={"flex"}
+              flexDirection={"column"}
+              justifyContent={"center"}
+              alignItems={"center"}
+            >
+              <HiOutlineThumbUp
+                style={{
+                  width: "20px",
+                  height: "20px",
+                  color: valueTrueFalse ? "green" : "",
+                }}
+              />
+              <Text fontWeight={"semibold"} fontSize={"md"}>
+                Verdadero
+              </Text>
+            </Box>
+            <Box
+              display={"flex"}
+              flexDirection={"column"}
+              justifyContent={"center"}
+              alignItems={"center"}
+            >
+              <HiOutlineThumbDown
+                style={{
+                  width: "20px",
+                  height: "20px",
+                  color: valueTrueFalse === false ? "green" : "",
+                }}
+              />
+              <Text fontWeight={"semibold"} fontSize={"md"}>
+                Falso
+              </Text>
+            </Box>
+          </Box>
+        );
+      case QUESTION_TYPES.MULTIPLE:
+      case QUESTION_TYPES.UNIQUE:
+        return (
+          <Box>
+            {data.options.map((option: any) => (
+              <Box
+                key={option.id}
+                role={"group"}
+                display={"flex"}
+                alignItems={"center"}
+                gap={4}
+              >
+                {QUESTION_TYPES.MULTIPLE === data.type ? (
+                  <Checkbox isChecked={option.is_correct} disabled />
+                ) : (
+                  <Radio isChecked={option.is_correct} disabled />
+                )}
+                <Text fontSize={"md"}>{option.text ?? ""}</Text>
+              </Box>
+            ))}
+          </Box>
+        );
+    }
+  };
   return (
     <>
       <Box
@@ -269,7 +370,7 @@ const InstructorChapter = () => {
               {renderButtonByType(QUESTION_TYPES.MULTIPLE)}
               {renderButtonByType(QUESTION_TYPES.UNIQUE)}
             </Box>
-            <Box display={"flex"} flexWrap={"wrap"} gap={2}>
+            <Box display={"flex"} flexWrap={"wrap"} gap={3}>
               <Box display={"flex"} gap={1} alignItems={"center"}>
                 <Box
                   display={"flex"}
@@ -315,13 +416,17 @@ const InstructorChapter = () => {
             </Box>
             <Box>
               {questions.map((question, i) => (
-                <Box boxShadow={"md"} p={4} mt={4} rounded={"lg"}>
+                <Box key={i} boxShadow={"md"} p={4} mt={4} rounded={"lg"}>
                   <Box
                     display={"flex"}
                     alignItems={"center"}
                     justifyContent={"space-between"}
                   >
-                    <Text fontWeight={"semibold"}>Pregunta {i + 1}</Text>
+                    <Box display={"flex"} gap={2}>
+                      {renderButtonByType(question.type, true, true)}
+                      <Text fontWeight={"semibold"}>Pregunta {i + 1}</Text>
+                    </Box>
+
                     <Box
                       display={"flex"}
                       gap={{
@@ -349,6 +454,12 @@ const InstructorChapter = () => {
                         }}
                       />
                     </Box>
+                  </Box>
+                  <Box>
+                    <Text fontWeight={"semibold"} my={2}>
+                      Opciones
+                    </Text>
+                    {renderContentQuestion(question)}
                   </Box>
                 </Box>
               ))}

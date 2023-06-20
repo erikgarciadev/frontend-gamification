@@ -51,6 +51,10 @@ const ItemUnit: React.FC<Props> = ({
     navigate(`/instructor/program/${unit_id}/chapter`);
   };
 
+  const handlePushEditChapter = (unit_id: string, chapter_id: string) => {
+    navigate(`/instructor/program/${unit_id}/chapter/${chapter_id}`);
+  };
+
   return (
     <Box minH="150px" mb={4} p={2} rounded={"lg"} shadow={"md"}>
       <div></div>
@@ -127,7 +131,22 @@ const ItemUnit: React.FC<Props> = ({
           </Text>
           <Box>
             {unit.chapters.map((chapter: any) => (
-              <p key={chapter._id}>{chapter.name}</p>
+              <Box
+                key={chapter._id}
+                display={"flex"}
+                gap={"8"}
+                alignItems={"center"}
+              >
+                <p>{chapter.name}</p>
+                <HiOutlinePencil
+                  style={{
+                    width: "20px",
+                    height: "20px",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => handlePushEditChapter(unit._id, chapter._id)}
+                />
+              </Box>
             ))}
           </Box>
         </React.Fragment>

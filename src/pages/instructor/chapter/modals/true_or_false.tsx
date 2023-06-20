@@ -41,7 +41,7 @@ const ModalTrueOrFalse: React.FC<Props> = ({
 
   React.useEffect(() => {
     if (props.currentData) {
-      const { _options, ...rest } = props.currentData;
+      const { options: _options, ...rest } = props.currentData;
       setData({
         ...rest,
       });
@@ -216,7 +216,8 @@ const ModalTrueOrFalse: React.FC<Props> = ({
                 <Input
                   onChange={(e) => handleChangeTextOption(i, e)}
                   variant="flushed"
-                  w="150px"
+                  w="70%"
+                  value={option.text ?? ""}
                 />
                 <Box
                   display={"none"}
