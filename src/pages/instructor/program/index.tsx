@@ -24,7 +24,6 @@ const InstructorProgram = () => {
   const handleSubmit = async (data: UnitProps) => {
     try {
       setLoading(true);
-      console.log(data);
       await axiosInstance.post("/units", data);
       setLoading(false);
       onClose();

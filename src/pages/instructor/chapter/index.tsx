@@ -52,7 +52,6 @@ const InstructorChapter = () => {
 
   const getChapter = async () => {
     const res = await axiosInstance.get(`/chapters/${chapter_id}`);
-    console.log(res.data);
     setValue("name", res.data.name ?? "");
     setValue("information", res.data.information ?? "");
     setQuestions(res.data.questions ?? []);

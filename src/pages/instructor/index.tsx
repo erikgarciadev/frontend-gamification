@@ -50,7 +50,7 @@ const InstructorPage = () => {
       setLoading(true);
       const res = await axiosInstance.post("/students", data);
       setLoading(false);
-      console.log(res);
+      // console.log(res);
       onClose();
       await getStudents(search);
     } catch (error) {
