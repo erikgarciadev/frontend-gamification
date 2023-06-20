@@ -456,6 +456,9 @@ const InstructorChapter = () => {
                     </Box>
                   </Box>
                   <Box>
+                    <Text fontWeight={"semibold"} fontSize={"lg"} my={2}>
+                      {question.text}
+                    </Text>
                     <Text fontWeight={"semibold"} my={2}>
                       Opciones
                     </Text>
