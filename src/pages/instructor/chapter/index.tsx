@@ -307,7 +307,7 @@ const InstructorChapter = () => {
             fontWeight={"semibold"}
             mb="4"
           >
-            Crear capitulo
+            {chapter_id ? 'Editar capitulo' : 'Crear capitulo'}
           </Text>
           <FormControl mb="4">
             <FormLabel>Nombre</FormLabel>
