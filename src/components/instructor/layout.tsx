@@ -92,6 +92,7 @@ const LayoutInstructor: React.FC<Props> = ({ children }) => {
             base: 3,
             md: 10,
           }}
+          overflow="auto"
         >
           {children}
         </Box>

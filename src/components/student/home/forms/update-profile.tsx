@@ -167,6 +167,11 @@ const FormUpdateProfile = () => {
             role="group"
           >
             <img
+              style={{
+                objectFit: "cover",
+                width: "100%",
+                height: "100%",
+              }}
               alt="user_image"
               src={imageUser ?? "/images/user_avatar.png"}
             />

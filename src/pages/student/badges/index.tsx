@@ -114,7 +114,7 @@ const BadgesStudent = () => {
               </Box> */}
             </Box>
           )}
-          <Box
+          {/* <Box
             display={"grid"}
             gap={5}
             gridGap={5}
@@ -172,7 +172,7 @@ const BadgesStudent = () => {
                 }
               />
             </Box>
-          </Box>
+          </Box> */}
         </Box>
       )}
     </LayoutStudent>
