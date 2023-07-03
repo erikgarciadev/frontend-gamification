@@ -1,6 +1,6 @@
 import React from "react";
 import LayoutStudent from "../../../components/student/layout";
-import { Box } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import axiosInstance from "../../../config/axiosInstance";
 import { useNavigate } from "react-router-dom";
 
@@ -36,55 +36,69 @@ const UnitsPage = () => {
         backgroundSize={"cover"}
         backgroundPosition={"center"}
       >
-        <Box
-          display={"flex"}
-          justifyContent={"center"}
-          flexWrap={"wrap"}
-          gap={8}
-        >
-          {units.map((unit: any) => (
-            <Box
-              textAlign={"center"}
-              display={"flex"}
-              justifyContent={"center"}
-              flexDirection={"column"}
-              alignItems={"center"}
-            >
+        <Box>
+          <Text
+            textAlign={"center"}
+            color="white"
+            fontSize={"4xl"}
+            mb="4"
+            fontWeight={"bold"}
+          >
+            Unidades
+          </Text>
+          <Box
+            display={"flex"}
+            justifyContent={"center"}
+            flexWrap={"wrap"}
+            gap={{
+              base: 4,
+              md: 8,
+            }}
+          >
+            {units.map((unit: any) => (
               <Box
-                bg="#eba347"
+                textAlign={"center"}
                 display={"flex"}
                 justifyContent={"center"}
+                flexDirection={"column"}
                 alignItems={"center"}
-                h="130px"
-                w="130px"
-                p={3}
-                rounded="full"
-                cursor={"pointer"}
-                _hover={{
-                  bg: "#db6666",
-                }}
-                onClick={() => handlePush(unit._id)}
               >
                 <Box
                   bg="#eba347"
                   display={"flex"}
                   justifyContent={"center"}
                   alignItems={"center"}
-                  p={4}
+                  // h="130px"
+                  // w="130px"
+                  p={3}
                   rounded="full"
                   cursor={"pointer"}
                   _hover={{
                     bg: "#db6666",
                   }}
-                  color="white"
-                  fontSize={"2xl"}
-                  fontWeight={"bold"}
+                  onClick={() => handlePush(unit._id)}
                 >
-                  {unit.name}
+                  <Box
+                    bg="#eba347"
+                    display={"flex"}
+                    justifyContent={"center"}
+                    alignItems={"center"}
+                    p={2}
+                    rounded="full"
+                    cursor={"pointer"}
+                    _hover={{
+                      bg: "#db6666",
+                    }}
+                    color="white"
+                    fontSize={"xl"}
+                    fontWeight={"semibold"}
+                  >
+                    {unit.name}
+                  </Box>
                 </Box>
               </Box>
-            </Box>
-          ))}
+            ))}
+          </Box>
         </Box>
       </Box>
     </LayoutStudent>

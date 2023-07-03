@@ -86,7 +86,7 @@ const ChapterPage = () => {
             </Text>
 
             {data?.information !== "" ? (
-              <Editor value={data.information} readOnly />
+              <Editor value={data?.information ?? ""} readOnly />
             ) : null}
 
             <Button
