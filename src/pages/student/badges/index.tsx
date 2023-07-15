@@ -16,6 +16,7 @@ const BadgesStudent = () => {
     setLoading(true);
     const res = await axiosInstance.get(`/user_badges/user/${user?._id}`);
 
+    console.log(res.data);
     setBadges(res.data);
     setLoading(false);
   };
@@ -61,7 +62,7 @@ const BadgesStudent = () => {
                   justifyContent={"center"}
                   py={6}
                 >
-                  <Badge image_url={badge.image_url} />
+                  <Badge image_url={badge.badge.image_url} />
                 </Box>
               ))}
               {/* <Box
